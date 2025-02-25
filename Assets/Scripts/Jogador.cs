@@ -8,6 +8,11 @@ public class Jogador : MonoBehaviour
 
     public Jogo scriptJogo;
 
+    public float eixoX;
+
+    public float eixoY;
+
+    public float correr;
     public void OnTriggerEnter(Collider objetoQueColidu)
     {
         if(objetoQueColidu.gameObject.tag == "Saida")
@@ -24,12 +29,17 @@ public class Jogador : MonoBehaviour
 
     void Update()
     {
-        float forcaHorizontal = Input.GetAxis("Horizontal");
-        float forcaVertical = Input.GetAxis("Vertical");
+        eixoX = Input.GetAxis("Horizontal");
+        eixoY = Input.GetAxis("Vertical");
+        correr = Input.GetAxis("Fire3") * velocidade * 3;
 
-        Vector3 direcaoDaForca = new Vector3(forcaHorizontal, 0, forcaVertical);
+        Vector3 Andando = jogador.linearVelocity = new Vector3(eixoX* velocidade, jogador.linearVelocity.y, eixoY * velocidade);
 
-        jogador.AddForce(direcaoDaForca * velocidade);
+        if (correr > 0)
+        {
+            Andando = jogador.linearVelocity = new Vector3(eixoX * correr, jogador.linearVelocity.y, eixoY * correr);
+        }
+
     }
 }
 
